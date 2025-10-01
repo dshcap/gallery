@@ -2,19 +2,43 @@
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
-  <title>AltHouse — Galeria (3 kolory)</title>
+  <title>AltHouse — Galeria (5 kolorów)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body{margin:0;font-family:system-ui,Arial,sans-serif;background:#f7f8fb;color:#222}
     .wrap{max-width:1000px;margin:0 auto;padding:24px}
     h1{margin:0 0 18px;font-size:28px}
     .viewer{
-      background:#fff;border:1px solid #e0e6f2;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.06);
-      padding:20px; display:inline-block; margin-bottom:16px;
+      background:#fff;
+      border:1px solid #e0e6f2;
+      border-radius:14px;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      padding:20px;
+      display:inline-block;
+      margin-bottom:16px;
     }
-    .img{max-width:100%;height:auto;display:block;border-radius:10px}
+    .img{
+      max-width:995px; 
+      max-height:773px;
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:10px;
+      border:1px solid #ddd;
+      margin:0 auto;
+    }
     .buttons{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
-    .btn{border:1px solid #c6d6e6;border-radius:999px;padding:10px 16px;font-weight:600;color:#fff;cursor:pointer;user-select:none;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:.15s}
+    .btn{
+      border:1px solid #c6d6e6;
+      border-radius:999px;
+      padding:10px 16px;
+      font-weight:600;
+      color:#fff;
+      cursor:pointer;
+      user-select:none;
+      box-shadow:0 2px 8px rgba(0,0,0,.05);
+      transition:.15s
+    }
     .btn:hover{transform:translateY(-1px)}
     .btn.is-active{outline:2px solid rgba(0,0,0,.15)}
     .caption{margin-top:8px;color:#58607a;font-size:14px}
@@ -22,7 +46,7 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Galeria Sufitów — test (3 kolory)</h1>
+    <h1>Galeria Sufitów — test (5 kolorów)</h1>
 
     <div class="viewer">
       <img id="photo" class="img" alt="Sufit napinany" />
@@ -32,17 +56,17 @@
   </div>
 
   <script>
-    // Файлы и ваши описания (меняйте desc как хотите)
+    // Pięć przykładów — pamiętaj, że "file" = nazwa pliku w repozytorium
     const items = [
-      { id: 'g110', label: 'G110', file: '500 G 110 Light Blue.png', color: '#86C5FF', desc: 'Szerokości: 320 / 500. Wysoki połysk – Light Blue.' },
-      { id: 'g156', label: 'G156', file: '500 G 156 Blue.png',       color: '#4DA3FF', desc: 'Szerokości: 320 / 500. Chłodny odcień, elegancki połysk.' },
-      { id: 'g160', label: 'G160', file: '500 G 160 Blue.png',       color: '#2D77FF', desc: 'Szerokości: 500. Głęboki niebieski, świetny do salonu.' }
-      { id: 'r462', label: 'R462', file: '500 G 462 Red.png',        color: '#FF3B30', desc: 'Szerokości: 320 / 500. Intensywny czerwony połysk.' }
-    { id: 'y721', label: 'Y721', file: '500 G 721 Yelloy.png',     color: '#FFD300', desc: 'Szerokości: 320. Energetyczny żółty sufit.' }
+      { id: 'g110', label: 'G110', file: '500 G 110 Light Blue.png', color: '#86C5FF', desc: 'Gloss 320/500 — Light Blue, efekt odbicia lustra.' },
+      { id: 'g156', label: 'G156', file: '500 G 156 Blue.png',       color: '#4DA3FF', desc: 'Gloss 320/500 — Blue, elegancki chłodny ton.' },
+      { id: 'g160', label: 'G160', file: '500 G 160 Blue.png',       color: '#2D77FF', desc: 'Gloss 500 — głęboki Blue, idealny do salonu.' },
+      { id: 'r462', label: 'R462', file: '500 G 462 Red.png',        color: '#FF3B30', desc: 'Gloss 320/500 — intensywny czerwony połysk.' },
+      { id: 'y721', label: 'Y721', file: '500 G 721 Yellow.png',     color: '#FFD300', desc: 'Gloss 320 — energetyczny żółty sufit.' }
     ];
 
-    const $img  = document.getElementById('photo');
-    const $cap  = document.getElementById('caption');
+    const $img = document.getElementById('photo');
+    const $cap = document.getElementById('caption');
     const $btns = document.getElementById('buttons');
 
     function activate(id){
@@ -53,14 +77,13 @@
 
     function show(id){
       const it = items.find(x => x.id === id);
-      if(!it) return;
-      $img.src = it.file;                 // путь к картинке (в корне репо)
+      $img.src = it.file;
       $img.alt = 'Sufit – ' + it.label;
-      $cap.textContent = it.desc || '';   // <<< ВЫВОДИМ ВАШЕ ОПИСАНИЕ
+      $cap.textContent = it.desc; // <-- описание берется из items
       activate(id);
     }
 
-    // Кнопки
+    // Рисуем кнопки
     items.forEach(it => {
       const b = document.createElement('button');
       b.className = 'btn';
