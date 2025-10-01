@@ -57,13 +57,29 @@
 
   <script>
     // Pięć przykładów — pamiętaj, że "file" = nazwa pliku w repozytorium
-    const items = [
-      { id: 'g110', label: 'G110', file: '500 G 110 Light Blue.png', color: '#86C5FF', desc: 'Gloss 320/500 — Light Blue, efekt odbicia lustra.' },
-      { id: 'g156', label: 'G156', file: '500 G 156 Blue.png',       color: '#4DA3FF', desc: 'Gloss 320/500 — Blue, elegancki chłodny ton.' },
-      { id: 'g160', label: 'G160', file: '500 G 160 Blue.png',       color: '#2D77FF', desc: 'Gloss 500 — głęboki Blue, idealny do salonu.' },
-      { id: 'r462', label: 'R462', file: '500 G 462 Red.png',        color: '#FF3B30', desc: 'Gloss 320/500 — intensywny czerwony połysk.' },
-      { id: 'y721', label: 'Y721', file: '500 G 721 Yelloy.png',     color: '#FFD300', desc: 'Gloss 320 — energetyczny żółty sufit.' }
-    ];
+    const G_ITEMS = [
+  { id:'g110', label:'G110', file:'500 G 110 Light Blue.png', color:'#86C5FF', desc:'' },
+  { id:'g156', label:'G156', file:'500 G 156 Blue.png',       color:'#4DA3FF', desc:'' },
+  { id:'g160', label:'G160', file:'500 G 160 Blue.png',       color:'#2D77FF', desc:'' },
+
+  { id:'g305', label:'G305', file:'500 G 305 Ivory.png',      color:'#F1E8D8', desc:'' },
+  { id:'g307', label:'G307', file:'500 G 307 Beige.png',      color:'#DCC7A6', desc:'' },
+  { id:'g309', label:'G309', file:'500 G 309 Cream.png',      color:'#F3E7C8', desc:'' },
+
+  { id:'g313', label:'G313', file:'500 G 313 Silver.png',     color:'#B9C2C9', desc:'' },
+  { id:'g317', label:'G317', file:'500 G 317 Steel.png',      color:'#8F9AA3', desc:'' },
+
+  { id:'g319', label:'G319', file:'500 G 319 Graphite.png',   color:'#5A5F66', desc:'' },
+  { id:'g333', label:'G333', file:'500 G 333 Charcoal.png',   color:'#3E4349', desc:'' },
+  { id:'g347', label:'G347', file:'500 G 347 Black.png',      color:'#202226', desc:'' },
+
+  { id:'g462', label:'G462', file:'500 G 462 Red.png',        color:'#FF3B30', desc:'' },
+  { id:'g507', label:'G507', file:'500 G 507 Champagne.png',  color:'#EED9B0', desc:'' },
+  { id:'g511', label:'G511', file:'500 G 511 Vanilla.png',    color:'#F0E3C5', desc:'' },
+
+  { id:'g571', label:'G571', file:'500 G 571 Brown.png',      color:'#7B5741', desc:'' },
+  { id:'g721', label:'G721', file:'500 G 721 Yellow.png',     color:'#FFD500', desc:'' }
+];
 
     const $img = document.getElementById('photo');
     const $cap = document.getElementById('caption');
