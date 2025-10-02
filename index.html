@@ -5,22 +5,21 @@
   <title>AltHouse — Galeria G</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    html, body {
+    body {
       margin:0;
-      padding:0;
-      overflow:hidden;   /* убираем прокрутку */
-      background:transparent;
       font-family: system-ui, Arial, sans-serif;
-      color:#fff;
+      background: transparent; /* фон убран */
+      color:#fff; /* текст теперь белый */
     }
 
     /* Контейнер */
     .al-widget {
       display:block;
+      background:transparent;
+      padding:0;
       margin:0 auto;
-      max-width:800px; /* регулируй размер под себя */
+      max-width:700px; /* ограничиваем ширину */
       width:100%;
-      text-align:left;
     }
 
     /* Фото */
@@ -28,16 +27,15 @@
       display:block;
       width:100%;
       height:auto;
-      max-height:70vh; /* чтобы фото не занимало весь экран */
       border-radius:10px;
-      object-fit:contain;
     }
 
     /* Кнопки */
     .al-buttons {
       display:flex;
-      flex-wrap:wrap;
+      flex-wrap:wrap; /* теперь кнопки переносятся на 2 ряда */
       gap:8px;
+      justify-content:flex-start;
       margin:14px 0 10px;
     }
     .al-btn {
@@ -52,13 +50,17 @@
       box-shadow:0 2px 6px rgba(0,0,0,.05);
       transition:.15s transform;
     }
-    .al-btn:hover { transform:translateY(-1px); }
-    .al-btn.is-active { outline:2px solid rgba(255,255,255,.6); }
+    .al-btn:hover {
+      transform:translateY(-1px);
+    }
+    .al-btn.is-active {
+      outline:2px solid rgba(255,255,255,.6);
+    }
 
     /* Подпись */
     .al-caption {
       font-size:14px;
-      color:#ffffff; /* чисто белый */
+      color:#ffffff; /* ЧИСТО белый текст */
       margin-top:10px;
     }
   </style>
@@ -71,7 +73,7 @@
   </div>
 
   <script>
-    // G-потолки
+    // Список G-потолков
     const items = [
       { id:'g110', label:'G110', file:'500 G 110 Light Blue.png', color:'#86C5FF', desc:'Light Blue — świeży błękit, kuchnie/łazienki. 320/500 cm' },
       { id:'g156', label:'G156', file:'500 G 156 Blue.png',       color:'#4DA3FF', desc:'Blue — elegancki chłodny ton, biura i salony. 320/500 cm' },
@@ -91,9 +93,9 @@
       { id:'g721', label:'G721', file:'500 G 721 Yelloy.png',     color:'#ffd200', desc:'Yellow — energetyczny, kuchnie. 320/500 cm' }
     ];
 
-    const $img=document.getElementById('photo');
-    const $cap=document.getElementById('caption');
-    const $btns=document.getElementById('buttons');
+    const $img = document.getElementById('photo');
+    const $cap = document.getElementById('caption');
+    const $btns = document.getElementById('buttons');
 
     function activate(id){
       document.querySelectorAll('.al-btn').forEach(b=>{
@@ -102,13 +104,14 @@
     }
 
     function show(id){
-      const it=items.find(x=>x.id===id);
-      $img.src=it.file;
-      $img.alt='Sufit – '+it.label;
-      $cap.textContent=it.desc;
+      const it = items.find(x=>x.id===id);
+      $img.src = it.file;
+      $img.alt = 'Sufit – ' + it.label;
+      $cap.textContent = it.desc;
       activate(id);
     }
 
+    // Кнопки
     items.forEach(it=>{
       const b=document.createElement('button');
       b.className='al-btn';
@@ -119,6 +122,7 @@
       $btns.appendChild(b);
     });
 
+    // Первый показ
     show(items[0].id);
   </script>
 </body>
