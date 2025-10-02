@@ -2,101 +2,130 @@
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
-  <title>AltHouse — Galeria M (Mat 320/500 cm)</title>
+  <title>AltHouse — Galeria M (Mat 320/500)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body {
-      margin:0;
-      font-family:system-ui,Arial,sans-serif;
-      background:#000;
+    /* База */
+    :root{
+      --maxw: 980px;
+      --gap: 12px;
+      --btn-pad-y: 10px;
+      --btn-pad-x: 18px;
+      --btn-radius: 999px;
+      --btn-border: 2px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family: system-ui, Arial, sans-serif;
+      background:#000;            /* фон как на G */
       color:#fff;
-      text-align:center;
     }
 
-    .wrap {
-      max-width:900px;
+    /* Контейнер виджета: слева, без скролла */
+    .m-wrap{
+      width:100%;
+      max-width:var(--maxw);
       margin:0 auto;
-      padding:20px;
+      padding:20px 18px 28px;
     }
 
-    .img {
-      max-width:100%;
-      height:auto;
-      border-radius:10px;
+    /* Фото */
+    .m-photo{
       display:block;
-      margin:0 auto;
+      width:100%;
+      height:auto;
+      border-radius:12px;
+      box-shadow:0 10px 26px rgba(0,0,0,.35);
     }
 
-    .buttons {
+    /* Кнопки — как в G, но с контрастным тёмным текстом для пастельных фонов */
+    .m-buttons{
       display:flex;
       flex-wrap:wrap;
-      gap:12px;
-      justify-content:center;
+      gap:var(--gap);
+      justify-content:flex-start;     /* слева */
       margin:16px 0 10px;
     }
-
-    .btn {
-      width:90px;
-      height:44px;
-      border:1px solid #ccc;
-      border-radius:999px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      font-size:15px;
-      color:#000; /* Чёрный текст */
+    .m-btn{
+      border:var(--btn-border) solid rgba(255,255,255,.75);
+      border-radius:var(--btn-radius);
+      padding:var(--btn-pad-y) var(--btn-pad-x);
+      font-weight:700;
+      font-size:16px;
+      color:#111;                      /* чёрный текст — лучше читается на пастельных М-цветах */
+      background:#eee;
       cursor:pointer;
       user-select:none;
-      transition:.15s;
+      box-shadow:0 3px 10px rgba(0,0,0,.12);
+      transition:transform .15s ease, filter .15s ease, box-shadow .15s ease;
     }
-    .btn:hover { transform:translateY(-1px); filter:brightness(0.95); }
-    .btn.is-active { outline:2px solid rgba(0,0,0,.3); }
+    .m-btn:hover{ transform:translateY(-1px); filter:brightness(.97); }
+    .m-btn.is-active{
+      box-shadow:0 6px 18px rgba(0,0,0,.28);
+      outline:2px solid rgba(255,255,255,.45);
+      outline-offset:2px;
+    }
 
-    .caption {
-      margin-top:8px;
-      font-size:14px;
+    /* Подпись */
+    .m-cap{
       color:#fff;
+      font-size:15px;
+      margin-top:6px;
+      opacity:.95;
+    }
+
+    /* Небольшая отзывчивость */
+    @media (max-width:740px){
+      :root{ --maxw: 720px; --btn-pad-y: 9px; --btn-pad-x: 16px; --gap:10px; }
+      .m-btn{ font-size:15px; }
+    }
+    @media (max-width:520px){
+      .m-wrap{ padding:16px 14px 24px; }
+      .m-btn{ font-size:14px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <img id="photo" class="img" alt="Sufit napinany M" />
-    <div id="buttons" class="buttons"></div>
-    <div id="caption" class="caption"></div>
+  <div class="m-wrap">
+    <img id="photo" class="m-photo" alt="Sufit napinany — seria M" />
+    <div id="buttons" class="m-buttons"></div>
+    <div id="cap" class="m-cap"></div>
   </div>
 
   <script>
+    /* Карточки серии M (Mat 320/500), фиксированные фирменные цвета */
     const items = [
-      { id: 'm110', label: 'M110', file: '500 M 110 Light Blue.png', color: '#E0FFFF', desc: 'Mat 320/500 — świeży błękit, kuchnie/łazienki.' },
-      { id: 'm303', label: 'M303', file: '500 M 303 White.png',      color: '#FFFFE0', desc: 'Mat 320/500 — klasyczna biel, uniwersalna.' },
-      { id: 'm307', label: 'M307', file: '500 M 307 Beige.png',      color: '#FFE4B5', desc: 'Mat 320/500 — ciepły beż, przytulne wnętrza.' },
-      { id: 'm347', label: 'M347', file: '500 M 347 Black.png',      color: '#708090', desc: 'Mat 320/500 — elegancka czerń, nowoczesne salony.' },
-      { id: 'm501', label: 'M501', file: '500 M 501 Vanilla.png',    color: '#FFDEAD', desc: 'Mat 320/500 — kremowy odcień, kuchnie i sypialnie.' }
+      { id:'m110', label:'M110', file:'500 M 110 Light Blue.png', color:'#E0FFFF', desc:'Mat 320/500 — świeży błękit, kuchnie/łazienki.' },
+      { id:'m303', label:'M303', file:'500 M 303 White.png',      color:'#FFFFE0', desc:'Mat 320/500 — klasyczna biel, uniwersalna.' },
+      { id:'m307', label:'M307', file:'500 M 307 Beige.png',      color:'#FFE4B5', desc:'Mat 320/500 — ciepły beż, przytulne wnętrza.' },
+      { id:'m347', label:'M347', file:'500 M 347 Black.png',      color:'#708090', desc:'Mat 320/500 — elegancka czerń, nowoczesne salony.' },
+      { id:'m501', label:'M501', file:'500 M 501 Vanilla.png',    color:'#FFDEAD', desc:'Mat 320/500 — kremowy odcień, kuchnie i sypialnie.' },
     ];
 
     const $img = document.getElementById('photo');
-    const $cap = document.getElementById('caption');
+    const $cap = document.getElementById('cap');
     const $btns = document.getElementById('buttons');
 
     function activate(id){
-      document.querySelectorAll('.btn').forEach(b => {
-        b.classList.toggle('is-active', b.dataset.id === id);
-      });
+      document.querySelectorAll('.m-btn').forEach(b =>
+        b.classList.toggle('is-active', b.dataset.id === id)
+      );
     }
 
     function show(id){
       const it = items.find(x => x.id === id);
+      if(!it) return;
       $img.src = it.file;
-      $img.alt = 'Sufit – ' + it.label;
+      $img.alt = 'Sufit — ' + it.label;
       $cap.textContent = it.desc;
       activate(id);
     }
 
+    // рендер кнопок
     items.forEach(it => {
       const b = document.createElement('button');
-      b.className = 'btn';
+      b.className = 'm-btn';
       b.dataset.id = it.id;
       b.textContent = it.label;
       b.style.background = it.color;
@@ -104,6 +133,7 @@
       $btns.appendChild(b);
     });
 
+    // первый кадр
     show(items[0].id);
   </script>
 </body>
