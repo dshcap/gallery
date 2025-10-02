@@ -2,51 +2,50 @@
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
-  <title>AltHouse — Galeria (5 kolorów)</title>
+  <title>AltHouse — Galeria (G kolory)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body{margin:0;font-family:system-ui,Arial,sans-serif;background:#f7f8fb;color:#222}
+    :root{
+      --card-bg:#fff;
+      --card-bd:#e0e6f2;
+      --card-shadow:0 6px 18px rgba(0,0,0,.06);
+      --text:#222;
+      --muted:#58607a;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,Arial,sans-serif;background:#f7f8fb;color:var(--text)}
     .wrap{max-width:1000px;margin:0 auto;padding:24px}
     h1{margin:0 0 18px;font-size:28px}
     .viewer{
-      background:#fff;
-      border:1px solid #e0e6f2;
+      background:var(--card-bg);
+      border:1px solid var(--card-bd);
       border-radius:14px;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      box-shadow:var(--card-shadow);
       padding:20px;
       display:inline-block;
       margin-bottom:16px;
+      width:100%;
     }
     .img{
-      max-width:995px; 
-      max-height:773px;
-      width:100%;
-      height:auto;
       display:block;
+      width:100%;
+      height:auto;         /* картинка полностью видна и не обрезается */
       border-radius:10px;
-      border:1px solid #ddd;
-      margin:0 auto;
     }
     .buttons{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
     .btn{
-      border:1px solid #c6d6e6;
-      border-radius:999px;
-      padding:10px 16px;
-      font-weight:600;
-      color:#fff;
-      cursor:pointer;
-      user-select:none;
-      box-shadow:0 2px 8px rgba(0,0,0,.05);
-      transition:.15s
+      border:1px solid #c6d6e6;border-radius:999px;
+      padding:10px 16px;font-weight:600;color:#fff;cursor:pointer;
+      user-select:none;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:.15s;
     }
     .btn:hover{transform:translateY(-1px)}
     .btn.is-active{outline:2px solid rgba(0,0,0,.15)}
-    .caption{margin-top:8px;color:#58607a;font-size:14px}
+    .caption{margin-top:8px;color:var(--muted);font-size:14px}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Galeria Sufitów — test (5 kolorów)</h1>
+    <h1>Galeria Sufitów — test (G kolory)</h1>
 
     <div class="viewer">
       <img id="photo" class="img" alt="Sufit napinany" />
@@ -56,19 +55,25 @@
   </div>
 
   <script>
-    // Pięć przykładów — pamiętaj, że "file" = nazwa pliku w repozytorium
-    const items = [
-      { id: 'g110', label: 'G110', file: '500 G 110 Light Blue.png', color: '#86C5FF', desc: 'Gloss 320/500 — Light Blue, efekt odbicia lustra.' },
-      { id: 'g156', label: 'G156', file: '500 G 156 Blue.png',       color: '#4DA3FF', desc: 'Gloss 320/500 — Blue, elegancki chłodny ton.' },
-      { id: 'g160', label: 'G160', file: '500 G 160 Blue.png',       color: '#2D77FF', desc: 'Gloss 500 — głęboki Blue, idealny do salonu.' },
-      { id: 'r462', label: 'R462', file: '500 G 462 Red.png',        color: '#FF3B30', desc: 'Gloss 320/500 — intensywny czerwony połysk.' },
-      { id: 'y721', label: 'Y721', file: '500 G 721 Yelloy.png',     color: '#FFD300', desc: 'Gloss 320 — energetyczny żółty sufit.' }
-      { id:'g305', label:'G305', file:'500 G 305 Ivory.png',      color:'#F1E8D8', desc:'Gloss 320/500' },
-      { id:'g307', label:'G307', file:'500 G 307 Beige.png',      color:'#DCC7A6', desc:'Gloss 320/500' },
-      { id:'g309', label:'G309', file:'500 G 309 Cream.png',      color:'#F3E7C8', desc:'Gloss 320/500' },
+    /* Używamy TYLKO plików, które masz teraz w repo:
+       - 500 G 110 Light Blue.png
+       - 500 G 156 Blue.png
+       - 500 G 160 Blue.png
+       - 500 G 462 Red.png
+       - 500 G 721 Yelloy.png (pisownia z repo!)
+    */
+    const ITEMS = [
+      { id:'g110', label:'G110', file:'500 G 110 Light Blue.png', color:'#86C5FF', desc:'Gloss 320/500 — jasny niebieski.' },
+      { id:'g156', label:'G156', file:'500 G 156 Blue.png',       color:'#4DA3FF', desc:'Gloss 320/500 — chłodny niebieski.' },
+      { id:'g160', label:'G160', file:'500 G 160 Blue.png',       color:'#2D77FF', desc:'Gloss 320/500 — głębszy niebieski.' },
+      { id:'g462', label:'G462', file:'500 G 462 Red.png',        color:'#FF3B30', desc:'Gloss 320/500 — intensywny czerwony.' },
+      { id:'g721', label:'Y721', file:'500 G 721 Yelloy.png',     color:'#FFD500', desc:'Gloss 320 — energetyczny żółty.' }
+    ];
+    // ^ Jeśli przeniesiesz obrazy do folderu (np. "images/G/"),
+    //   dodaj prefiks: file: 'images/G/500 G 110 Light Blue.png'
 
-    const $img = document.getElementById('photo');
-    const $cap = document.getElementById('caption');
+    const $img  = document.getElementById('photo');
+    const $cap  = document.getElementById('caption');
     const $btns = document.getElementById('buttons');
 
     function activate(id){
@@ -78,26 +83,27 @@
     }
 
     function show(id){
-      const it = items.find(x => x.id === id);
-      $img.src = it.file;
+      const it = ITEMS.find(x => x.id === id);
+      if(!it) return;
+      $img.src = it.file;                  // ścieżka względna do pliku w repo
       $img.alt = 'Sufit – ' + it.label;
-      $cap.textContent = it.desc; // <-- описание берется из items
+      $cap.textContent = ${it.label} — ${it.desc || ''}.trim();
       activate(id);
     }
 
-    // Рисуем кнопки
-    items.forEach(it => {
+    // rysujemy przyciski
+    ITEMS.forEach(it => {
       const b = document.createElement('button');
-      b.className = 'btn';
-      b.dataset.id = it.id;
+      b.className   = 'btn';
+      b.dataset.id  = it.id;
       b.textContent = it.label;
       b.style.background = it.color;
       b.onclick = () => show(it.id);
       $btns.appendChild(b);
     });
 
-    // Первый показ
-    show(items[0].id);
+    // pierwszy pokaz (żeby nie było pustej miniatury)
+    show(ITEMS[0].id);
   </script>
 </body>
 </html>
