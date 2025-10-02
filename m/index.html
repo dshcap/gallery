@@ -8,7 +8,7 @@
     body {
       margin:0;
       font-family:system-ui,Arial,sans-serif;
-      background:#000; 
+      background:#000;
       color:#fff;
       text-align:center;
     }
@@ -19,12 +19,9 @@
       padding:20px;
     }
 
-    .viewer {
-      background:#000;
-    }
-
     .img {
       max-width:100%;
+      height:auto;
       border-radius:10px;
       display:block;
       margin:0 auto;
@@ -33,55 +30,50 @@
     .buttons {
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
+      gap:12px;
       justify-content:center;
-      margin:16px 0;
+      margin:16px 0 10px;
     }
 
-    /* кнопки серии M */
     .btn {
+      width:90px;
+      height:44px;
       border:1px solid #ccc;
-      border-radius:20px;
-      padding:10px 16px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       font-weight:600;
-      color:#000;      /* черный текст */
+      font-size:15px;
+      color:#000; /* Чёрный текст */
       cursor:pointer;
       user-select:none;
       transition:.15s;
     }
-
-    .btn:hover {
-      transform:translateY(-1px);
-      filter:brightness(0.9);
-    }
-
-    .btn.is-active {
-      outline:2px solid rgba(0,0,0,.25);
-    }
+    .btn:hover { transform:translateY(-1px); filter:brightness(0.95); }
+    .btn.is-active { outline:2px solid rgba(0,0,0,.3); }
 
     .caption {
       margin-top:8px;
-      color:#fff;
       font-size:14px;
+      color:#fff;
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="viewer">
-      <img id="photo" class="img" alt="Sufit napinany M" />
-      <div id="buttons" class="buttons"></div>
-      <div id="caption" class="caption"></div>
-    </div>
+    <img id="photo" class="img" alt="Sufit napinany M" />
+    <div id="buttons" class="buttons"></div>
+    <div id="caption" class="caption"></div>
   </div>
 
   <script>
     const items = [
-      { id: 'm110', label: 'M110', file: '500 M 110 Light Blue.png', color: '#E0FFFF', desc: 'Mat 320/500 — świeży błękit, do kuchni/łazienki.' },
+      { id: 'm110', label: 'M110', file: '500 M 110 Light Blue.png', color: '#E0FFFF', desc: 'Mat 320/500 — świeży błękit, kuchnie/łazienki.' },
       { id: 'm303', label: 'M303', file: '500 M 303 White.png',      color: '#FFFFE0', desc: 'Mat 320/500 — klasyczna biel, uniwersalna.' },
       { id: 'm307', label: 'M307', file: '500 M 307 Beige.png',      color: '#FFE4B5', desc: 'Mat 320/500 — ciepły beż, przytulne wnętrza.' },
       { id: 'm347', label: 'M347', file: '500 M 347 Black.png',      color: '#708090', desc: 'Mat 320/500 — elegancka czerń, nowoczesne salony.' },
-      { id: 'm501', label: 'M501', file: '500 M 501 Vanilla.png',    color: '#FFDEAD', desc: 'Mat 320/500 — kremowy odcień, do kuchni i sypialni.' }
+      { id: 'm501', label: 'M501', file: '500 M 501 Vanilla.png',    color: '#FFDEAD', desc: 'Mat 320/500 — kremowy odcień, kuchnie i sypialnie.' }
     ];
 
     const $img = document.getElementById('photo');
@@ -102,7 +94,6 @@
       activate(id);
     }
 
-    //  кнопки
     items.forEach(it => {
       const b = document.createElement('button');
       b.className = 'btn';
@@ -113,7 +104,6 @@
       $btns.appendChild(b);
     });
 
-    // Первый показ
     show(items[0].id);
   </script>
 </body>
