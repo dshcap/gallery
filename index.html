@@ -1,94 +1,121 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8" />
-  <title>AltHouse Gloss 320/500 cm </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body{margin:0;font-family:system-ui,Arial,sans-serif;background:#f7f8fb;color:#222}
-    .wrap{max-width:610px;margin:0 auto;padding:24px}
-    h1{margin:0 0 18px;font-size:28px}
-    .viewer{
-      background:#fff;border:1px solid #e0e6f2;border-radius:14px;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      padding:20px;display:inline-block;margin-bottom:16px;width:100%;
-    }
-    .img{display:block;width:100%;height:auto;border-radius:10px;}
-    .buttons{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
-    .btn{
-      border:1px solid #c6d6e6;border-radius:999px;padding:10px 16px;
-      font-weight:600;color:#fff;cursor:pointer;user-select:none;
-      box-shadow:0 2px 8px rgba(0,0,0,.05);transition:.15s
-    }
-    .btn:hover{transform:translateY(-1px)}
-    .btn.is-active{outline:2px solid rgba(0,0,0,.15)}
-    .caption{margin-top:8px;color:#58607a;font-size:14px}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  /* Прозрачный фон и ноль лишних отступов */
+  html,body{margin:0;padding:0;background:transparent!important;color:#222;font-family:system-ui,Arial,sans-serif}
+
+  /* Обёртка виджета — без рамок, теней и серых подложек */
+  .al-widget{display:inline-block;background:transparent;padding:0;margin:0}
+
+  /* Изображение — только само фото */
+  .al-photo{display:block;max-width:100%;height:auto;border-radius:10px}
+
+  /* Кнопки */
+  .al-buttons{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 10px}
+  .al-btn{
+    border:2px solid #fff;            /* тонкий белый кант, чтобы яркие цвета читались */
+    border-radius:999px;
+    padding:8px 14px;
+    font-weight:600;
+    color:#fff;
+    cursor:pointer;
+    user-select:none;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    transition:.15s transform;
+  }
+  .al-btn:hover{transform:translateY(-1px)}
+  .al-btn.is-active{outline:2px solid rgba(0,0,0,.15)}
+
+  /* Описание под кнопками (серый, ненавязчивый текст) */
+  .al-caption{font-size:14px;color:#58607a;margin-top:4px}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>AltHouse - Gloss 320/500 cm </h1>
 
-    <div class="viewer">
-      <img id="photo" class="img" alt="Sufit napinany" />
-      <div id="buttons" class="buttons"></div>
-      <div id="caption" class="caption"></div>
-    </div>
-  </div>
+<div class="al-widget" id="althouse-widget">
+  <!-- Без заголовка. Остаётся только фото + кнопки + описание -->
+  <img id="al-photo" class="al-photo" alt="Sufit napinany" />
+  <div id="al-buttons" class="al-buttons"></div>
+  <div id="al-caption" class="al-caption"></div>
+</div>
 
-  <script>
-    // Wszystkie pliki G (nazwy muszą być identyczne jak w repo!)
-    const ITEMS = [
-      { id:'g110', label:'G110', file:'500 G 110 Light Blue.png', color:'#86C5FF', desc:'Gloss 320/500 — Light Blue' },
-      { id:'g156', label:'G156', file:'500 G 156 Blue.png',       color:'#4DA3FF', desc:'Gloss 320/500 — Blue' },
-      { id:'g160', label:'G160', file:'500 G 160 Blue.png',       color:'#2D77FF', desc:'Gloss 320/500 — Blue' },
-      { id:'g305', label:'G305', file:'500 G 305 Ivory.png',      color:'#E9DCC9', desc:'Gloss 320/500 — Ivory' },
-      { id:'g307', label:'G307', file:'500 G 307 Beige.png',      color:'#E0CBA8', desc:'Gloss 320/500 — Beige' },
-      { id:'g309', label:'G309', file:'500 G 309 Cream.png',      color:'#F3E7C9', desc:'Gloss 320/500 — Cream' },
-      { id:'g313', label:'G313', file:'500 G 313 Silver.png',     color:'#C0C0C0', desc:'Gloss 320/500 — Silver' },
-      { id:'g317', label:'G317', file:'500 G 317 Steel.png',      color:'#7F8C8D', desc:'Gloss 320/500 — Steel' },
-      { id:'g319', label:'G319', file:'500 G 319 Graphite.png',   color:'#444444', desc:'Gloss 320/500 — Graphite' },
-      { id:'g333', label:'G333', file:'500 G 333 Charcoal.png',   color:'#2F2F2F', desc:'Gloss 320/500 — Charcoal' },
-      { id:'g347', label:'G347', file:'500 G 347 Black.png',      color:'#000000', desc:'Gloss 320/500 — Black' },
-      { id:'g462', label:'G462', file:'500 G 462 Red.png',        color:'#FF3B30', desc:'Gloss 320/500 — Red' },
-      { id:'g507', label:'G507', file:'500 G 507 Champagne.png',  color:'#F7E7CE', desc:'Gloss 320/500 — Champagne' },
-      { id:'g511', label:'G511', file:'500 G 511 Vanillal.png',   color:'#FFF0B3', desc:'Gloss 320/500 — Vanilla' },
-      { id:'g571', label:'G571', file:'500 G 571 Brown.png',      color:'#7B3F00', desc:'Gloss 320/500 — Brown' },
-      { id:'g721', label:'G721', file:'500 G 721 Yelloy.png',     color:'#FFD500', desc:'Gloss 320 — Yellow' }
-    ];
+<script>
+/* ------------------ ДАННЫЕ (правь здесь) ------------------ */
+const items = [
+  { id:'g110', label:'G110', file:'500 G 110 Light Blue.png', color:'#86C5FF',
+    desc:'Light Blue — świeży błękit, kuchnie/łazienki. Szerokości: 320 / 500 cm' },
+  { id:'g156', label:'G156', file:'500 G 156 Blue.png',       color:'#4DA3FF',
+    desc:'Blue — elegancki chłodny ton, idealny do salonu. 320 / 500 cm' },
+  { id:'g160', label:'G160', file:'500 G 160 Blue.png',       color:'#2D77FF',
+    desc:'Głęboki granat do sypialni lub gabinetu. 320 / 500 cm' },
 
-    const $img  = document.getElementById('photo');
-    const $cap  = document.getElementById('caption');
-    const $btns = document.getElementById('buttons');
+  { id:'g305', label:'G305', file:'500 G 305 Ivory.png',      color:'#E9E2CF',
+    desc:'Ivory — klasyczny, jadalnie/sypialnie. 320 / 500 cm' },
+  { id:'g307', label:'G307', file:'500 G 307 Beige.png',      color:'#D9C9B2',
+    desc:'Beige — ciepły i uniwersalny do salonu. 320 / 500 cm' },
+  { id:'g309', label:'G309', file:'500 G 309 Cream.png',      color:'#EEDFCB',
+    desc:'Cream — przytulny dla mniejszych wnętrz. 320 / 500 cm' },
 
-    function activate(id){
-      document.querySelectorAll('.btn').forEach(b => {
-        b.classList.toggle('is-active', b.dataset.id === id);
-      });
-    }
+  { id:'g313', label:'G313', file:'500 G 313 Silver.png',     color:'#B7BDC9',
+    desc:'Silver — nowoczesne kuchnie/biura. 320 / 500 cm' },
+  { id:'g317', label:'G317', file:'500 G 317 Steel.png',      color:'#9AA2AF',
+    desc:'Steel — loftowy charakter, dobre do łazienek. 320 / 500 cm' },
 
-    function show(id){
-      const it = ITEMS.find(x => x.id === id);
-      if(!it) return;
-      $img.src = it.file;
-      $img.alt = 'Sufit – ' + it.label;
-      $cap.textContent = `${it.label} — ${it.desc}`;
-      activate(id);
-    }
+  { id:'g319', label:'G319', file:'500 G 319 Graphite.png',   color:'#49515C',
+    desc:'Graphite — elegancja w salonach. 320 / 500 cm' },
+  { id:'g333', label:'G333', file:'500 G 333 Charcoal.png',   color:'#2E3238',
+    desc:'Charcoal — charakter do nowoczesnych kuchni. 320 / 500 cm' },
+  { id:'g347', label:'G347', file:'500 G 347 Black.png',      color:'#000000',
+    desc:'Black — luksus, efekt lustra w salonie. 320 / 500 cm' },
 
-    // Rysujemy przyciski
-    ITEMS.forEach(it => {
-      const b = document.createElement('button');
-      b.className = 'btn';
-      b.dataset.id = it.id;
-      b.textContent = it.label;
-      b.style.background = it.color;
-      b.onclick = () => show(it.id);
-      $btns.appendChild(b);
-    });
+  { id:'g462', label:'G462', file:'500 G 462 Red.png',        color:'#E43D37',
+    desc:'Red — energetyczny akcent, nowoczesne salony. 320 / 500 cm' },
+  { id:'g507', label:'G507', file:'500 G 507 Champagne.png',  color:'#EBD7C0',
+    desc:'Champagne — elegancja glamour. 320 / 500 cm' },
+  { id:'g511', label:'G511', file:'500 G 511 Vanillal.png',   color:'#F2E6C8',
+    desc:'Vanilla — ciepło do kuchni i pokoi dziecięcych. 320 / 500 cm' },
+  { id:'g571', label:'G571', file:'500 G 571 Brown.png',      color:'#6E4C2E',
+    desc:'Brown — szlachetny ton do biur i klasycznych salonów. 320 / 500 cm' },
+  { id:'g721', label:'G721', file:'500 G 721 Yelloy.png',     color:'#F0C400',
+    desc:'Yellow — energia do kuchni i pokojów dziecięcych. 320 / 500 cm' }
+];
+/* ---------------------------------------------------------- */
 
-    // Pierwszy pokaz
-    show(ITEMS[0].id);
-  </script>
+const $img  = document.getElementById('al-photo');
+const $btns = document.getElementById('al-buttons');
+const $cap  = document.getElementById('al-caption');
+
+function activate(id){
+  document.querySelectorAll('.al-btn').forEach(b => {
+    b.classList.toggle('is-active', b.dataset.id === id);
+  });
+}
+
+function show(id){
+  const it = items.find(x => x.id === id);
+  if(!it) return;
+  $img.src = it.file;                    // путь к файлу (относительно папки с кодом)
+  $img.alt = `Sufit – ${it.label}`;
+  $cap.textContent = it.desc || `Kolor: ${it.label}`;
+  activate(id);
+}
+
+// Рисуем кнопки
+items.forEach(it => {
+  const b = document.createElement('button');
+  b.className = 'al-btn';
+  b.dataset.id = it.id;
+  b.textContent = it.label;
+  b.style.background = it.color;
+  b.onclick = () => show(it.id);
+  $btns.appendChild(b);
+});
+
+// Первый показ
+show(items[0].id);
+</script>
 </body>
 </html>
