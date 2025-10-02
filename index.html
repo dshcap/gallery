@@ -2,27 +2,23 @@
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
-  <title>AltHouse — Galeria Gloss</title>
+  <title>AltHouse — Galeria G</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       margin:0;
       font-family: system-ui, Arial, sans-serif;
-      background:#000; /* фон сайта — черный */
-      color:#fff;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      min-height:100vh;
+      background: transparent; /* убираем фон */
+      color:#222;
     }
 
     /* Контейнер */
     .al-widget {
-      display:inline-block;
+      display:block;
       background:transparent;
       padding:0;
-      margin:20px auto;
-      max-width:800px;   /* ширина по максимуму */
+      margin:0 auto;
+      max-width:800px;
       width:100%;
     }
 
@@ -39,7 +35,7 @@
       display:flex;
       gap:8px;
       flex-wrap:wrap;
-      justify-content:center;
+      justify-content:flex-start; /* выравнивание по левому краю */
       margin:12px 0 8px;
     }
     .al-btn {
@@ -58,14 +54,13 @@
       transform:translateY(-1px);
     }
     .al-btn.is-active {
-      outline:2px solid rgba(255,255,255,.5);
+      outline:2px solid rgba(0,0,0,.3);
     }
 
     /* Подпись */
     .al-caption {
       font-size:14px;
-      color:#ccc;
-      text-align:center;
+      color:#444;
       margin-top:6px;
     }
   </style>
@@ -78,7 +73,7 @@
   </div>
 
   <script>
-    // Список потолков серии G
+    // Список G-потолков
     const items = [
       { id:'g110', label:'G110', file:'500 G 110 Light Blue.png', color:'#86C5FF', desc:'Light Blue — świeży błękit, kuchnie/łazienki. 320/500 cm' },
       { id:'g156', label:'G156', file:'500 G 156 Blue.png',       color:'#4DA3FF', desc:'Blue — elegancki chłodny ton, biura i salony. 320/500 cm' },
