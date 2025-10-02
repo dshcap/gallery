@@ -1,85 +1,67 @@
-<!doctype html>
-<html lang="pl">
-<head>
-  <meta charset="utf-8" />
-  <title>AltHouse — Galeria M (320/500 cm)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {margin:0;font-family:system-ui,Arial,sans-serif;background:#000;color:#fff;}
-    .wrap {max-width:900px;margin:0 auto;padding:20px;text-align:center;}
-    .viewer {background:#000;}
-    .img {max-width:100%;height:auto;border-radius:10px;display:block;margin:0 auto;}
-    .buttons {display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:16px 0;}
-    .btn {border:1px solid #c6d6e6;border-radius:999px;padding:10px 16px;font-weight:600;color:#fff;
-          cursor:pointer;user-select:none;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:.15s;}
-    .btn:hover{transform:translateY(-1px)}
-    .btn.is-active{outline:2px solid rgba(255,255,255,.5)}
-    .caption{margin-top:10px;color:#fff;font-size:14px;text-align:center;}
+<style>
+  body {
+    margin:0;
+    font-family:system-ui,Arial,sans-serif;
+    background:#000; 
+    color:#fff;
+  }
 
-    /* адаптив для мобилы */
-    @media (max-width: 768px) {
-      .buttons {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-      }
-      .btn {
-        width: 80px;
-        padding: 8px 0;
-        font-size: 14px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="viewer">
-      <img id="photo" class="img" alt="Sufit napinany M" />
-      <div id="buttons" class="buttons"></div>
-      <div id="caption" class="caption"></div>
-    </div>
-  </div>
+  .wrap {
+    max-width:900px;
+    margin:0 auto;
+    padding:20px;
+    text-align:center;
+  }
 
-  <script>
-    // Матовые потолки M
-    const items = [
-      { id: 'm110', label: 'M110', file: '500 M 110 Light Blue.png', desc: 'Mat 320/500 — delikatny błękit, do sypialni i kuchni.' },
-      { id: 'm303', label: 'M303', file: '500 M 303 White.png', desc: 'Mat 320/500 — klasyczna biel, uniwersalna do każdego wnętrza.' },
-      { id: 'm307', label: 'M307', file: '500 M 307 Beige.png', desc: 'Mat 320/500 — ciepły beż, przytulny do salonów.' },
-      { id: 'm347', label: 'M347', file: '500 M 347 Black.png', desc: 'Mat 320/500 — elegancka czerń, nowoczesne biura i lofty.' },
-      { id: 'm501', label: 'M501', file: '500 M 501 Vanilla.png', desc: 'Mat 320/500 — kremowy odcień, do kuchni i sypialni.' }
-    ];
+  .viewer {
+    background:#000;
+  }
 
-    const $img = document.getElementById('photo');
-    const $cap = document.getElementById('caption');
-    const $btns = document.getElementById('buttons');
+  .img {
+    max-width:100%;
+    border-radius:10px;
+    display:block;
+    margin:0 auto;
+  }
 
-    function activate(id){
-      document.querySelectorAll('.btn').forEach(b => {
-        b.classList.toggle('is-active', b.dataset.id === id);
-      });
-    }
+  .buttons {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin:16px 0;
+  }
 
-    function show(id){
-      const it = items.find(x => x.id === id);
-      $img.src = it.file;
-      $img.alt = 'Sufit – ' + it.label;
-      $cap.textContent = it.desc;
-      activate(id);
-    }
+  /* стиль кнопок для серии M */
+  .btn {
+    border:1px solid #ccc;
+    border-radius:20px;
+    padding:10px 16px;
+    font-weight:600;
+    color:#000;                 /* черный текст */
+    background:#f5f5f5;         /* светлый фон */
+    cursor:pointer;
+    user-select:none;
+    transition:.15s;
+  }
 
-    // Рисуем кнопки
-    items.forEach(it => {
-      const b = document.createElement('button');
-      b.className = 'btn';
-      b.dataset.id = it.id;
-      b.textContent = it.label;
-      b.onclick = () => show(it.id);
-      $btns.appendChild(b);
-    });
+  /* разные оттенки для разнообразия */
+  .btn:nth-child(2n) { background:#e6e6e6; }
+  .btn:nth-child(3n) { background:#ddd; }
+  .btn:nth-child(4n) { background:#f0f0f0; }
 
-    // Первый показ
-    show(items[0].id);
-  </script>
-</body>
-</html>
+  .btn:hover {
+    transform:translateY(-1px);
+    background:#ccc;
+  }
+
+  .btn.is-active {
+    outline:2px solid rgba(0,0,0,.25);
+  }
+
+  .caption {
+    margin-top:8px;
+    color:#fff;
+    font-size:14px;
+  }
+</style>
