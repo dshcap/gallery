@@ -1,1 +1,109 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <title>AltHouse — Galeria Clouds (Sky)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin:0;
+      font-family:system-ui,Arial,sans-serif;
+      background:#000;
+      color:#fff;
+    }
 
+    .wrap {
+      max-width:900px;
+      margin:0 auto;
+      padding:20px;
+    }
+
+    .photo {
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius:12px;
+      box-shadow:0 10px 26px rgba(0,0,0,.35);
+    }
+
+    .buttons {
+      display:flex;
+      gap:12px;
+      justify-content:flex-start;
+      margin:16px 0 10px;
+      flex-wrap:wrap;
+    }
+
+    .btn {
+      border:2px solid rgba(255,255,255,.75);
+      border-radius:999px;
+      padding:10px 18px;
+      font-weight:600;
+      font-size:16px;
+      color:#111;
+      background:#8fd0ff; /* небесный оттенок */
+      cursor:pointer;
+      user-select:none;
+      box-shadow:0 3px 10px rgba(0,0,0,.12);
+      transition:.15s;
+    }
+    .btn:hover { transform:translateY(-1px); filter:brightness(.95); }
+    .btn.is-active {
+      outline:2px solid rgba(255,255,255,.45);
+      box-shadow:0 6px 18px rgba(0,0,0,.28);
+    }
+
+    .caption {
+      font-size:15px;
+      margin-top:8px;
+      color:#fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img id="photo" class="photo" alt="Sufit napinany Clouds" />
+    <div id="buttons" class="buttons"></div>
+    <div id="caption" class="caption"></div>
+  </div>
+
+  <script>
+    const items = [
+      { id:'clouds002', label:'Clouds', 
+        file:'Exlusive 320 Clouds White-Blue 002.png',
+        color:'#8fd0ff', desc:'Exlusive 320 Clouds — niebo z obłokami. Szerokość 320/500 cm' }
+    ];
+
+    const $img = document.getElementById('photo');
+    const $cap = document.getElementById('caption');
+    const $btns = document.getElementById('buttons');
+
+    function activate(id){
+      document.querySelectorAll('.btn')
+        .forEach(b => b.classList.toggle('is-active', b.dataset.id === id));
+    }
+
+    function show(id){
+      const it = items.find(x => x.id === id);
+      $img.src = it.file;
+      $img.alt = 'Sufit – ' + it.label;
+      $cap.textContent = it.desc;
+      activate(id);
+    }
+
+    // кнопка
+    items.forEach(it => {
+      const b = document.createElement('button');
+      b.className = 'btn';
+      b.dataset.id = it.id;
+      b.textContent = it.label;
+      b.style.background = it.color;
+      b.onclick = () => show(it.id);
+      $btns.appendChild(b);
+    });
+
+    // старт
+    show(items[0].id);
+  </script>
+</body>
+</html>
