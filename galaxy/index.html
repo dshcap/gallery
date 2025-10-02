@@ -5,22 +5,16 @@
   <title>AltHouse — Galeria Galaxy (320/500)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root{
-      --txt:#fff;
-      --maxw:900px;
-    }
+    :root{ --maxw:900px; }
     *{box-sizing:border-box}
     body{
-      margin:0;
-      font-family:system-ui,Arial,sans-serif;
-      background:#000;
-      color:var(--txt);
+      margin:0;font-family:system-ui,Arial,sans-serif;
+      background:#000;color:#fff;
     }
     .wrap{max-width:var(--maxw);margin:0 auto;padding:20px}
     .photo{
       width:100%;height:auto;display:block;margin:0 auto;border-radius:12px;
-      box-shadow:0 10px 26px rgba(0,0,0,.35);
-      background:#111;
+      box-shadow:0 10px 26px rgba(0,0,0,.35);background:#111;
     }
 
     .buttons{
@@ -32,7 +26,7 @@
       border-radius:999px;
       padding:10px 18px;
       font-weight:700;font-size:16px;letter-spacing:.3px;
-      color:#111;cursor:pointer;user-select:none;
+      cursor:pointer;user-select:none;
       box-shadow:0 3px 10px rgba(0,0,0,.12);
       transition:.15s transform, .15s filter;
     }
@@ -50,23 +44,21 @@
   </div>
 
   <script>
-    // Поменяй имена файлов ниже на точные, как в репозитории
     const items = [
       {
         id:'galaxy-black',
         label:'Galaxy Black',
-        // файл из твоего репо
         file:'Galaxy 320 Galaxy 303 Galaxy Black.png',
-        // глубокий сине-чёрный под звёздное небо
         color:'#0c1330',
+        textColor:'#ffffff',
         desc:'Galaxy 320 — Galaxy Black (303). Efekt gwiaździstego nieba. Szerokości: 320/500 cm'
       },
       {
         id:'galaxy-white',
         label:'Galaxy White',
         file:'Galaxy 320 Galaxy 347 Galaxy White.png',
-        // тёплый белый
         color:'#fff2c9',
+        textColor:'#000000',
         desc:'Galaxy 320 — Galaxy White (347). Delikatny rozgwieżdżony sufit. Szerokości: 320/500 cm'
       }
     ];
@@ -87,20 +79,19 @@
       activate(id);
     }
 
-    // кнопки
+    // Рисуем кнопки
     items.forEach(it=>{
       const b=document.createElement('button');
       b.className='btn';
       b.dataset.id=it.id;
       b.textContent=it.label;
       b.style.background=it.color;
+      b.style.color=it.textColor; // цвет текста разный
       b.onclick=()=>show(it.id);
       $btns.appendChild(b);
     });
 
-    // стартовый показ
     show(items[0].id);
   </script>
 </body>
 </html>
-
